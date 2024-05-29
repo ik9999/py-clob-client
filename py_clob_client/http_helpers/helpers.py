@@ -36,7 +36,7 @@ def request(endpoint: str, method: str, headers=None, data=None):
     try:
         headers = overloadHeaders(method, headers)
         resp = requests.request(
-            method=method, url=endpoint, headers=headers, json=data if data else None
+            method=method, url=endpoint, headers=headers, json=data if data else None, timeout=10
         )
         if resp.status_code != 200:
             raise PolyApiException(resp)
