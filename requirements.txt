@@ -22,7 +22,7 @@ packaging==21.3
 pluggy==1.0.0
 protobuf==3.19.4
 py==1.11.0
-git+https://github.com/ik9999/python-order-utils.git@f008bafd62215c739a2013711cf9d510b042a317#egg=py_order_utils
+py_order_utils @ git+https://github.com/ik9999/python-order-utils.git@f008bafd62215c739a2013711cf9d510b042a317
 pycryptodome==3.14.0
 pyparsing==3.0.7
 pyrsistent==0.18.1
