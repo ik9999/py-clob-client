@@ -11,6 +11,8 @@ from py_clob_client.clob_types import (
 
 from ..exceptions import PolyApiException
 
+from typing import Optional
+
 GET = "GET"
 POST = "POST"
 DELETE = "DELETE"
@@ -32,11 +34,11 @@ def overloadHeaders(method: str, headers: dict) -> dict:
     return headers
 
 
-def request(endpoint: str, method: str, headers=None, data=None):
+def request(endpoint: str, method: str, headers=None, data=None, proxies: Optional[dict[str, str]] = None):
     try:
         headers = overloadHeaders(method, headers)
         resp = requests.request(
-            method=method, url=endpoint, headers=headers, json=data if data else None, timeout=10
+            method=method, url=endpoint, headers=headers, json=data if data else None, timeout=10, proxies=proxies
         )
         if resp.status_code != 200:
             raise PolyApiException(resp)
@@ -50,16 +52,16 @@ def request(endpoint: str, method: str, headers=None, data=None):
         raise PolyApiException(error_msg="Request exception!")
 
 
-def post(endpoint, headers=None, data=None):
-    return request(endpoint, POST, headers, data)
+def post(endpoint, headers=None, data=None, proxies: Optional[dict[str, str]] = None):
+    return request(endpoint, POST, headers, data, proxies)
 
 
-def get(endpoint, headers=None, data=None):
-    return request(endpoint, GET, headers, data)
+def get(endpoint, headers=None, data=None, proxies: Optional[dict[str, str]] = None):
+    return request(endpoint, GET, headers, data, proxies)
 
 
-def delete(endpoint, headers=None, data=None):
-    return request(endpoint, DELETE, headers, data)
+def delete(endpoint, headers=None, data=None, proxies: Optional[dict[str, str]] = None):
+    return request(endpoint, DELETE, headers, data, proxies)
 
 
 def build_query_params(url: str, param: str, val: str) -> str:
